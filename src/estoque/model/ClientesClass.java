@@ -1,6 +1,6 @@
 package estoque.model;
 
-public class Clientes {
+public class ClientesClass {
 
     //Atributos
     private int id;

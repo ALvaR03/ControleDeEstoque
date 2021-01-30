@@ -10,7 +10,9 @@ public class TestaConexao {
             new ConnectionFactory().getConnection();
             JOptionPane.showMessageDialog(null, "Connectado com sucesso!");
         } catch (Exception erro) {
+            
             JOptionPane.showMessageDialog(null, "Ops aconteceu o erro: " + erro);
+            
         }
         
     }

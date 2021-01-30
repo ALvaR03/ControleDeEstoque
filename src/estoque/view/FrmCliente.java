@@ -1,12 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package estoque.view;
 
-import estoque.controller.ClienteController;
-import estoque.model.Clientes;
+//import estoque.controller.ClienteController;
+import estoque.model.ClientesClass;
 
 /**
  *
@@ -426,7 +421,7 @@ public class FrmCliente extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
         
         // Botao salvar
-        Clientes obj = new Clientes();
+        ClientesClass obj = new ClientesClass();
 
         // Adicionar todos os atributos contidos na tela
         obj.setNome(txtNome.getText());
@@ -443,8 +438,8 @@ public class FrmCliente extends javax.swing.JFrame {
         obj.setCidade(txtCidade.getText());
         obj.setUf(cbUF.getSelectedItem().toString());
 
-        ClienteController cont = new ClienteController();
-        cont.cadastrarCliente(obj);
+      //  ClienteController cont = new ClienteController();
+       // cont.cadastrarCliente(obj);
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

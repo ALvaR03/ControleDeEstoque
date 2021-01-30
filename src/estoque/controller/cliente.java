@@ -1,12 +1,14 @@
 package estoque.controller;
 
 import estoque.model.ClientesClass;
-
-import projeto.jdbc.ConnectionFactory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
+import projeto.jdbc.ConnectionFactory;
 
 public class cliente {
 
@@ -57,14 +59,114 @@ public class cliente {
     
     
     //Metodo AlteraClinte
-    public void alterarCliente() {
+    public void alterarCliente(ClientesClass obj) {
+        
+        try {
+            
+            // Criando o comando para alterar no sql 
+            String sql = "update tb_clientes set nome=?, rg=?, cpf=?, email=?, telefone=?, celular=?,"
+                    + "cep=?, endereco=?, numero=?, complemento=?, bairro=?, cidade=?, estado=? where id=?";
+            
+            
+            //Conectar o banco de dados e organizar o comando sql
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setString(1, obj.getNome());
+            stmt.setString(2, obj.getRg());
+            stmt.setString(3, obj.getCpf());
+            stmt.setString(4, obj.getEmail());
+            stmt.setString(5, obj.getTelefone());
+            stmt.setString(6, obj.getCelular());
+            stmt.setString(7, obj.getCep());
+            stmt.setString(8, obj.getEndereco());
+            stmt.setInt(9, obj.getNumero());
+            stmt.setString(10, obj.getComplemento());
+            stmt.setString(11, obj.getBairro());
+            stmt.setString(12, obj.getCidade());
+            stmt.setString(13, obj.getUf());
+            
+            stmt.setInt(14, obj.getId());
+            
+            
+            // Executar o comando sql
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Alterado com Sucesso!!");
+            
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Error " + erro);
+        }
         
     }
     
     
     //Metodo ExcluirCliente
-    public void excluirCliente() {
+    public void excluirCliente(ClientesClass obj) {
+        
+          try {
+            
+            // Criando o comando para excluir dados no sql 
+            String sql = "delete from tb_clientes where id=?";
+            
+            //Conectar o banco de dados e organizar o comando sql
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setInt(1, obj.getId());
+            
+            // Executar o comando sql
+            stmt.execute();
+            stmt.close();
+            
+            JOptionPane.showMessageDialog(null, "Excluido com Sucesso!!");
+            
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, "Error " + erro);
+        }
         
     }
     
+    public List<ClientesClass>listarClientes() {
+        
+        try {
+            
+            // Criar a lista
+            List<ClientesClass> lista = new ArrayList<>();
+            
+            
+            // Criar o sql, organizar e executar 
+            String sql = "select * from tb_clientes";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            ResultSet resultadoSelect = stmt.executeQuery();
+            
+            while(resultadoSelect.next()) {
+                
+                ClientesClass obj = new ClientesClass();
+                obj.setId(resultadoSelect.getInt("id"));
+                obj.setNome(resultadoSelect.getString("nome"));
+                obj.setRg(resultadoSelect.getString("rg"));
+                obj.setCpf(resultadoSelect.getString("cpf"));
+                obj.setEmail(resultadoSelect.getString("email"));
+                obj.setTelefone(resultadoSelect.getString("telefone"));
+                obj.setCelular(resultadoSelect.getString("celular"));
+                obj.setCep(resultadoSelect.getString("cep"));
+                obj.setEndereco(resultadoSelect.getString("endereco"));
+                obj.setNumero(resultadoSelect.getInt("numero"));
+                obj.setComplemento(resultadoSelect.getString("complemento"));
+                obj.setBairro(resultadoSelect.getString("bairro"));
+                obj.setCidade(resultadoSelect.getString("cidade"));
+                obj.setUf(resultadoSelect.getString("estado"));
+                
+                
+                lista.add(obj);
+                
+            }
+            
+            return lista;
+            
+        } catch (SQLException erro) {
+            JOptionPane.showMessageDialog(null, erro);
+            
+            return null;
+            
+        }
+    }
 }

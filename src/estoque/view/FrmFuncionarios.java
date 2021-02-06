@@ -1,7 +1,9 @@
 package estoque.view;
 
 import estoque.controller.cliente;
+import estoque.controller.funcionario;
 import estoque.model.ClientesClass;
+import estoque.model.FuncionariosClass;
 import estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
 import java.util.List;
@@ -551,13 +553,18 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         // Botao salvar
-        ClientesClass obj = new ClientesClass();
+        FuncionariosClass obj = new FuncionariosClass();
 
         // Adicionar todos os atributos contidos na tela
         obj.setNome(txtNome.getText());
         obj.setRg(txtRg.getText());
         obj.setCpf(txtCpf.getText());
         obj.setEmail(txtEmail.getText());
+        
+        obj.setSenha(txtSenha.getText());
+        obj.setCargo(txtCargo.getText());
+        obj.setNivel_acesso(cbNivel.getSelectedItem().toString());
+        
         obj.setTelefone(txtTelefone.getText());
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCep.getText());
@@ -568,8 +575,8 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         obj.setCidade(txtCidade.getText());
         obj.setUf(cbUF.getSelectedItem().toString());
 
-        cliente clienteController = new cliente();
-        clienteController.cadastrarCliente(obj);
+        funcionario funcionarioControler = new funcionario();
+        funcionarioControler.cadastrarFuncionario(obj);
 
     }//GEN-LAST:event_btnSalvarActionPerformed
 

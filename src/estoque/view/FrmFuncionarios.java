@@ -19,27 +19,30 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     //Metodo Listar na tabela 
     public void listar() {
 
-        cliente clienteControler = new cliente();
-        List<ClientesClass> lista = clienteControler.listarClientes();
+        funcionario funcController = new funcionario();
+        List<FuncionariosClass> lista = funcController.listarFuuncionarios();
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionario.getModel();
         dados.setNumRows(0); // Limpar os dados que tem na tabela
 
-        for (ClientesClass cli : lista) {
+        for (FuncionariosClass func : lista) {
             dados.addRow(new Object[]{
-                cli.getId(),
-                cli.getNome(),
-                cli.getRg(),
-                cli.getCpf(),
-                cli.getEmail(),
-                cli.getTelefone(),
-                cli.getCelular(),
-                cli.getCep(),
-                cli.getEndereco(),
-                cli.getNumero(),
-                cli.getComplemento(),
-                cli.getBairro(),
-                cli.getCidade(),
-                cli.getUf()
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivel_acesso(),
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
             });
         }
     }
@@ -108,6 +111,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         btnExcluir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Funcionario");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowActivated(java.awt.event.WindowEvent evt) {
                 formWindowActivated(evt);
@@ -548,6 +552,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {btnEditar, btnExcluir, btnNovo, btnSalvar});
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
@@ -588,13 +593,18 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
 
         // Botao Editar
-        ClientesClass obj = new ClientesClass();
+        FuncionariosClass obj = new FuncionariosClass();
 
         // Adicionar todos os atributos contidos na tela
         obj.setNome(txtNome.getText());
         obj.setRg(txtRg.getText());
         obj.setCpf(txtCpf.getText());
         obj.setEmail(txtEmail.getText());
+        
+        obj.setSenha(txtSenha.getText());
+        obj.setCargo(txtCargo.getText());
+        obj.setNivel_acesso(cbNivel.getSelectedItem().toString());
+        
         obj.setTelefone(txtTelefone.getText());
         obj.setCelular(txtCelular.getText());
         obj.setCep(txtCep.getText());
@@ -607,9 +617,9 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         obj.setId(Integer.parseInt(txtCodigo.getText()));
 
-        cliente cli = new cliente();
+        funcionario func = new funcionario();
 
-        cli.alterarCliente(obj);
+        func.alterarFuncionario(obj);
         
         new Utilitarios().limpaTela(painel_dados);
 
@@ -618,12 +628,13 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
 
         // Botao Excluir
-        ClientesClass obj = new ClientesClass();
+        FuncionariosClass obj = new FuncionariosClass();
         obj.setId(Integer.parseInt(txtCodigo.getText()));
 
         
-        cliente cli = new cliente();
-        cli.excluirCliente(obj);
+        funcionario func = new funcionario();
+        
+        func.excluirFuncionario(obj);
         new Utilitarios().limpaTela(painel_dados);
 
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -645,15 +656,19 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         txtRg.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 2).toString());
         txtCpf.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 3).toString());
         txtEmail.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 4).toString());
-        txtTelefone.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 5).toString());
-        txtCelular.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 6).toString());
-        txtCep.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 7).toString());
-        txtEndereco.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 8).toString());
-        txtNumero.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 9).toString());
-        txtComplemento.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 10).toString());
-        txtBairro.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 11).toString());
-        txtCidade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 12).toString());
-        cbUF.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 13).toString());
+        txtSenha.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 5).toString());
+        txtCargo.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 6).toString());
+        cbNivel.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 7).toString());
+               
+        txtTelefone.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 8).toString());
+        txtCelular.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 9).toString());
+        txtCep.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 10).toString());
+        txtEndereco.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 11).toString());
+        txtNumero.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 12).toString());
+        txtComplemento.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 13).toString());
+        txtBairro.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 14).toString());
+        txtCidade.setText(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 15).toString());
+        cbUF.setSelectedItem(tabelaFuncionario.getValueAt(tabelaFuncionario.getSelectedRow(), 16).toString());
 
     }//GEN-LAST:event_tabelaFuncionarioMouseClicked
 
@@ -662,28 +677,33 @@ public class FrmFuncionarios extends javax.swing.JFrame {
 
         String nome = "%" + txtPesquisa.getText() + "%";
 
-        cliente clienteControler = new cliente();
-        List<ClientesClass> lista = clienteControler.buscaClientePorNome(nome);
+        funcionario funcionarioController = new funcionario();
+        List<FuncionariosClass> lista = funcionarioController.listaFuncionarioPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionario.getModel();
         dados.setNumRows(0); // Limpar os dados que tem na tabela
 
-        for (ClientesClass cli : lista) {
+        for (FuncionariosClass func : lista) {
             dados.addRow(new Object[]{
-                cli.getId(),
-                cli.getNome(),
-                cli.getRg(),
-                cli.getCpf(),
-                cli.getEmail(),
-                cli.getTelefone(),
-                cli.getCelular(),
-                cli.getCep(),
-                cli.getEndereco(),
-                cli.getNumero(),
-                cli.getComplemento(),
-                cli.getBairro(),
-                cli.getCidade(),
-                cli.getUf()
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivel_acesso(),
+                
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
             });
         }
 
@@ -691,44 +711,49 @@ public class FrmFuncionarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     private void txtPesquisaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisaKeyPressed
+       
         // 
-
         String nome = "%" + txtPesquisa.getText() + "%";
 
-        cliente clienteControler = new cliente();
-        List<ClientesClass> lista = clienteControler.buscaClientePorNome(nome);
+        funcionario funcionarioController = new funcionario();
+        List<FuncionariosClass> lista = funcionarioController.listaFuncionarioPorNome(nome);
 
         DefaultTableModel dados = (DefaultTableModel) tabelaFuncionario.getModel();
         dados.setNumRows(0); // Limpar os dados que tem na tabela
 
-        for (ClientesClass cli : lista) {
+        for (FuncionariosClass func : lista) {
             dados.addRow(new Object[]{
-                cli.getId(),
-                cli.getNome(),
-                cli.getRg(),
-                cli.getCpf(),
-                cli.getEmail(),
-                cli.getTelefone(),
-                cli.getCelular(),
-                cli.getCep(),
-                cli.getEndereco(),
-                cli.getNumero(),
-                cli.getComplemento(),
-                cli.getBairro(),
-                cli.getCidade(),
-                cli.getUf()
+                func.getId(),
+                func.getNome(),
+                func.getRg(),
+                func.getCpf(),
+                func.getEmail(),
+                
+                func.getSenha(),
+                func.getCargo(),
+                func.getNivel_acesso(),
+                
+                func.getTelefone(),
+                func.getCelular(),
+                func.getCep(),
+                func.getEndereco(),
+                func.getNumero(),
+                func.getComplemento(),
+                func.getBairro(),
+                func.getCidade(),
+                func.getUf()
             });
         }
-
     }//GEN-LAST:event_txtPesquisaKeyPressed
 
     private void btnBuscaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscaActionPerformed
-        //Botao buscar cliente por nome 
+
+        //Botao buscar funcionario pelo nome 
         String nome = txtNome.getText();
-        ClientesClass obj = new ClientesClass();
-        cliente cli = new cliente();
+        FuncionariosClass obj = new FuncionariosClass();
+        funcionario func = new funcionario();
         
-        obj = cli.consultaPorNome(nome);    
+        obj = func.consultaPorNome(nome);    
         
         if (obj.getNome() != null) {
             
@@ -740,6 +765,10 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             txtCpf.setText(obj.getCpf());
 
             txtEmail.setText(obj.getEmail());
+            txtSenha.setText(obj.getSenha());
+            txtCargo.setText(obj.getCargo());
+            cbNivel.setSelectedItem(obj.getNivel_acesso());
+            
             txtTelefone.setText(obj.getTelefone());
 
             txtCelular.setText(obj.getCelular());
@@ -754,7 +783,7 @@ public class FrmFuncionarios extends javax.swing.JFrame {
             txtCidade.setText(obj.getCidade());
             cbUF.setSelectedItem(obj.getUf());
         } else {
-            JOptionPane.showMessageDialog(null, "Cliente nao encontrado!");
+            JOptionPane.showMessageDialog(null, "Funcionario nao encontrado!");
         }
         
         

@@ -1,6 +1,7 @@
 package estoque.controller;
 
 import estoque.model.FuncionariosClass;
+import estoque.view.FrmLogin;
 import estoque.view.FrmMenu;
 import java.awt.HeadlessException;
 import java.sql.Connection;
@@ -300,11 +301,13 @@ public class funcionario {
                 
                 JOptionPane.showMessageDialog(null, "Ola!, Seja Bem-Vindo.");
                 FrmMenu telaMenu = new FrmMenu();
+                telaMenu.usuarioLogado = resultadoSelect.getString("nome");
                 telaMenu.setVisible(true);
                 
             } else { // Dados desconhecidos
                 
                 JOptionPane.showMessageDialog(null, "Email ou Senha inválidos!");
+                new FrmLogin().setVisible(true);
             }
             
         } catch (SQLException erro) {

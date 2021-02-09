@@ -1,8 +1,6 @@
 package estoque.view;
 
-import estoque.controller.cliente;
 import estoque.controller.funcionario;
-import estoque.model.ClientesClass;
 import estoque.model.FuncionariosClass;
 import estoque.model.Utilitarios;
 import java.awt.event.KeyEvent;
@@ -794,9 +792,9 @@ public class FrmFuncionarios extends javax.swing.JFrame {
         
         //Programacao do keypress
 	if (evt.getKeyCode() == KeyEvent.VK_ENTER) { 
-            ClientesClass obj =  new ClientesClass();
-            cliente cli = new cliente();
-            obj = cli.buscaCep(txtCep.getText());
+            FuncionariosClass obj =  new FuncionariosClass();
+            funcionario func = new funcionario();
+            obj = func.buscaCep(txtCep.getText());
 
             txtEndereco.setText(obj.getEndereco());
             txtBairro.setText(obj.getBairro());

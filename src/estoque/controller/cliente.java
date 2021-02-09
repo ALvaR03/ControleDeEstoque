@@ -186,7 +186,6 @@ public class cliente {
             ClientesClass obj = new ClientesClass();
             if(resultadoSelect.next()) {
                 
-                
                 obj.setId(resultadoSelect.getInt("id"));
                 obj.setNome(resultadoSelect.getString("nome"));
                 obj.setRg(resultadoSelect.getString("rg"));

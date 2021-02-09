@@ -315,4 +315,8 @@ public class funcionario {
         }
         
     }
+
+    public FuncionariosClass buscaCep(String text) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

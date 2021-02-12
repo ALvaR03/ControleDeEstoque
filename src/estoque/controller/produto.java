@@ -47,7 +47,7 @@ public class produto {
     public void Alterar(ProdutosClass obj) {
         try {
             String sql = "update estoVendasJava.tb_produtos set descricao=?, preco=?, "
-                    + "qtd_estoque=?, for_id=?, where id=?";
+                    + "qtd_estoque=?, for_id=? where id=?";
             
             // Conectar com banco de dados e organizar o comando sql
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -64,7 +64,7 @@ public class produto {
             JOptionPane.showMessageDialog(null, "Produto Alterado com Sucesso!!");
             
         } catch (Exception erro) {
-            JOptionPane.showMessageDialog(null, "Erro: " + erro);
+            JOptionPane.showMessageDialog(null, "Erro: 2" + erro);
         }
     }
     
@@ -135,7 +135,7 @@ public class produto {
             
             // Criar o sql, organizar e executar
             String sql = "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from estoVendasJava.tb_produtos as p " +
-                         "inner join estoVendasJava.tb_fornecedores as f on (p.for_id = f.id); where p.descricao like ?";
+                         "inner join estoVendasJava.tb_fornecedores as f on (p.for_id = f.id) where p.descricao like ?";
             
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, nome);

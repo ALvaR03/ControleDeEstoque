@@ -171,7 +171,7 @@ public class produto {
         try {
             
             String sql = "select p.id, p.descricao, p.preco, p.qtd_estoque, f.nome from estoVendasJava.tb_produtos as p " +
-                         "inner join estoVendasJava.tb_fornecedores as f on (p.for_id = f.id); where p.descricao = ?";
+                         "inner join estoVendasJava.tb_fornecedores as f on (p.for_id = f.id) where p.descricao = ?";
             
             
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -200,6 +200,34 @@ public class produto {
         }
     }
     
+    // Metodo consultarProduto por nome 
+    public ProdutosClass buscaPorCodigo(int id) {
+        try {
+            
+            String sql = "select * from estoVendasJava.tb_produtos where id = ?";
+            
+            
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setInt(1, id);
+            
+            ResultSet resultadoSelect = stmt.executeQuery();
+            ProdutosClass obj = new ProdutosClass();
+            
+            if (resultadoSelect.next()) {
+                obj.setId(resultadoSelect.getInt("id"));
+                obj.setDescricao(resultadoSelect.getString("descricao"));
+                obj.setPreco(resultadoSelect.getDouble("preco"));
+                obj.setQtd_estoque(resultadoSelect.getInt("qtd_estoque"));
+                
+            }
+            
+            return obj;
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Produtos nao encontrado");
+            return null;
+        }
+    }
     
     
 }

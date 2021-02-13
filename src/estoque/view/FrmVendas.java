@@ -400,6 +400,7 @@ public class FrmVendas extends javax.swing.JFrame {
         //Botao Pagamento
         FrmPagamentos telap = new FrmPagamentos();
         telap.txtTotal.setText(String.valueOf(total));
+        telap.cliente_id = obj.getId(); // passando o que tem dentro do obj para o id do cliente
         telap.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPagamentoActionPerformed

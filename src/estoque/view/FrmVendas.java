@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class FrmVendas extends javax.swing.JFrame {
 
+    ClientesClass obj = new ClientesClass();
     double total, preco, subtotal;
     int qtd;
     
@@ -433,7 +434,6 @@ public class FrmVendas extends javax.swing.JFrame {
     private void txtCpfKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCpfKeyPressed
         // Busca cliente por cpf
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            ClientesClass obj = new ClientesClass();
             cliente cli = new cliente();
             
             obj = cli.buscaPorCpf(txtCpf.getText());

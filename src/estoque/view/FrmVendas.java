@@ -490,7 +490,11 @@ public class FrmVendas extends javax.swing.JFrame {
            txtCodigo.getText(),
            txtDescricao.getText(),
            txtQtd.getText(),
+<<<<<<< HEAD
            txtPreco.getText(), 
+=======
+           txtPreco.getText(),
+>>>>>>> 353284f4ef54998c4caa381da25248ed662ce1c9
            subtotal
         });
         

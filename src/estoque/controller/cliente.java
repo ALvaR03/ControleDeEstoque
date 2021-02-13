@@ -210,6 +210,45 @@ public class cliente {
         }
     }
     
+    // Metodo Busca Cliente por Cpf
+    public ClientesClass buscaPorCpf(String cpf) {
+        try {
+            
+            // Cria o comando, organizar por nome
+            String sql = "select * from tb_clientes where cpf = ?";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setString(1, cpf);
+            
+            ResultSet resultadoSelect = stmt.executeQuery();
+            
+            ClientesClass obj = new ClientesClass();
+            if(resultadoSelect.next()) {
+                
+                obj.setId(resultadoSelect.getInt("id"));
+                obj.setNome(resultadoSelect.getString("nome"));
+                obj.setRg(resultadoSelect.getString("rg"));
+                obj.setCpf(resultadoSelect.getString("cpf"));
+                obj.setEmail(resultadoSelect.getString("email"));
+                obj.setTelefone(resultadoSelect.getString("telefone"));
+                obj.setCelular(resultadoSelect.getString("celular"));
+                obj.setCep(resultadoSelect.getString("cep"));
+                obj.setEndereco(resultadoSelect.getString("endereco"));
+                obj.setNumero(resultadoSelect.getInt("numero"));
+                obj.setComplemento(resultadoSelect.getString("complemento"));
+                obj.setBairro(resultadoSelect.getString("bairro"));
+                obj.setCidade(resultadoSelect.getString("cidade"));
+                obj.setUf(resultadoSelect.getString("estado"));    
+            }
+            
+            return obj;
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Cliente nao encontrado!!");
+            return null;
+        }
+    }
+    
+    
     // Medoto Buscar Cliente por nome - Retorna uma lista
     public List<ClientesClass>buscaClientePorNome(String nome) {
         

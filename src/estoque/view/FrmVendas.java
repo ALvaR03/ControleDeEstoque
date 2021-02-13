@@ -4,15 +4,11 @@ package estoque.view;
 import estoque.controller.cliente;
 import estoque.controller.produto;
 import estoque.model.ClientesClass;
-import estoque.model.FornecedoresClass;
 import estoque.model.ProdutosClass;
-import estoque.model.Utilitarios;
 import java.awt.Color;
 import java.awt.event.KeyEvent;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -482,6 +478,18 @@ public class FrmVendas extends javax.swing.JFrame {
         total += subtotal;
         
         txtTotal.setText(String.valueOf(total));
+        
+        // Adicionar o produto no carrinho 
+        carrinho = (DefaultTableModel)tabela_Itens.getModel();
+        
+        carrinho.addRow(new Object[]{
+           txtCodigo.getText(),
+           txtDescricao.getText(),
+           txtQtd.getText(),
+           txtPreco.getText(),
+           subtotal
+        });
+        
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**

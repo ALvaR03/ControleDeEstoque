@@ -481,7 +481,7 @@ public class FrmVendas extends javax.swing.JFrame {
         subtotal = qtd * preco;
         total += subtotal;
         
-        txtTotal.setText(String.valueOf(txtTotal));
+        txtTotal.setText(String.valueOf(total));
     }//GEN-LAST:event_btnAddActionPerformed
 
     /**

@@ -8,6 +8,12 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
     public FrmPagamentos() {
         initComponents();
+        
+        txtCartao.setText("0");
+        txtDinheiro.setText("0");
+        txtCheque.setText("0");
+        txtTroco.setText("0");
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -84,6 +90,11 @@ public class FrmPagamentos extends javax.swing.JFrame {
 
         btnFinalizar.setFont(new java.awt.Font("Dialog", 1, 22)); // NOI18N
         btnFinalizar.setText("Finalizar Venda");
+        btnFinalizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -152,6 +163,23 @@ public class FrmPagamentos extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnFinalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarActionPerformed
+        
+        double pCartao, pCheque, pDinheiro, totalPago, totalVenda, troco;
+        
+        pCartao = Double.parseDouble(txtCartao.getText());
+        pCheque = Double.parseDouble(txtCheque.getText());
+        pDinheiro = Double.parseDouble(txtDinheiro.getText());
+        
+        totalVenda = Double.parseDouble(txtTotal.getText());
+        
+        // Calcular o total e o troco
+        totalPago = pCartao + pCheque + pDinheiro;
+        troco = totalPago - totalVenda;
+        txtTroco.setText(String.valueOf(troco));
+        
+    }//GEN-LAST:event_btnFinalizarActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -199,7 +227,7 @@ public class FrmPagamentos extends javax.swing.JFrame {
     private javax.swing.JTextField txtCartao;
     private javax.swing.JTextField txtCheque;
     private javax.swing.JTextField txtDinheiro;
-    private javax.swing.JTextField txtTotal;
+    public javax.swing.JTextField txtTotal;
     private javax.swing.JTextField txtTroco;
     // End of variables declaration//GEN-END:variables
 }

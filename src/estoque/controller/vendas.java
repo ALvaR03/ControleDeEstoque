@@ -1,10 +1,13 @@
 package estoque.controller;
 
+import estoque.model.ClientesClass;
 import estoque.model.VendasClass;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import projeto.jdbc.ConnectionFactory;
 
@@ -62,6 +65,47 @@ public class vendas {
             
         } catch (SQLException erro) {
             throw new RuntimeException(erro);
+        }
+    }
+    
+    
+    // Metodo que filtra Vendas por Datas - usado no historico de vendas
+    public List<VendasClass> listarVendasPorPeriodo(String data_inicio, String data_fim) {
+        try {
+            
+            // Criar a lista
+            List<VendasClass> lista = new ArrayList<>();
+            
+            // Criar o sql, organizar e executar
+            String sql = "select v.id, v.data_venda, c.nome, v.totalvenda, v.observacoes from venda as v"
+                    + " inner join clientes as c on(v.cliente_id = c.id) where v.data_venda between ? and ?";
+            
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setString(1, data_inicio);
+            stmt.setString(2, data_fim);
+            
+            ResultSet resultadoSelect = stmt.executeQuery();
+            
+            while (resultadoSelect.next()) {
+                VendasClass obj = new VendasClass();
+                ClientesClass cli = new ClientesClass(); 
+                
+                obj.setId(resultadoSelect.getInt("v.id"));
+                obj.setData_venda(resultadoSelect.getString("v.data_venda"));
+                cli.setNome(resultadoSelect.getString("c.nome"));
+                obj.setTotal_venda(resultadoSelect.getDouble("v.total_venda"));
+                obj.setObs(resultadoSelect.getString("v.observacoes"));
+                
+                obj.setCliente(cli);
+                
+                lista.add(obj);
+            }
+                
+            return lista;
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Error: " + erro);
+            return null;
         }
     }
     

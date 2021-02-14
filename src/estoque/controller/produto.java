@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import projeto.jdbc.ConnectionFactory;
 import estoque.model.FornecedoresClass;
+import java.sql.SQLException;
 
 /**
  * @author lima
@@ -246,7 +247,29 @@ public class produto {
         } catch (Exception erro) {
             JOptionPane.showConfirmDialog(null, "Erro: " + erro);
         }
-        
-        
     }
+    
+    // Metodo que retorna o estoque atual de um produto
+    public int retornaEstoqueAtual(int id) {
+        try {
+            
+            int qtd_estoque = 0;
+            
+            String sql = "select qtd_estoque from tb_produtos where id = ?";
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setInt(1, id);
+            
+            ResultSet resultadoSelect = stmt.executeQuery();
+            
+            if (resultadoSelect.next()) {
+                qtd_estoque = (resultadoSelect.getInt("qtd_estoque"));
+            } 
+           
+            return qtd_estoque;
+             
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
+        }
+    }
+    
 }

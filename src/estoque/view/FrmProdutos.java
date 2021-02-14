@@ -532,7 +532,7 @@ public class FrmProdutos extends javax.swing.JFrame {
         fornecedor forne = new fornecedor();
         List<FornecedoresClass> listaDeFornecedores = forne.listarFornecedores();
         
-        cbFornecedor.removeAll();
+        cbFornecedor.removeAllItems();
         for (FornecedoresClass f : listaDeFornecedores) {
             cbFornecedor.addItem(f);
         }

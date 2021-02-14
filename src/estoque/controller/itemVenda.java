@@ -36,8 +36,6 @@ public class itemVenda {
             stmt.execute();
             stmt.close();
             
-            JOptionPane.showMessageDialog(null, "Item Registrado com sucesso"); 
-            
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
         }

@@ -1,10 +1,15 @@
 package estoque.view;
 
+import estoque.controller.itemVenda;
 import estoque.controller.vendas;
 import estoque.model.ClientesClass;
+import estoque.model.ItemVendasClass;
+import estoque.model.ProdutosClass;
 import estoque.model.VendasClass;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -13,6 +18,7 @@ import java.util.Date;
 public class FrmPagamentos extends javax.swing.JFrame {
 
     ClientesClass clienteObj = new ClientesClass(); // Obj para todo o codigo
+    DefaultTableModel carrinho;
     
     public FrmPagamentos() {
         initComponents();
@@ -223,7 +229,33 @@ public class FrmPagamentos extends javax.swing.JFrame {
         
         vendas vendas_v = new vendas();
         vendas_v.cadastrarVendas(objv);
+ 
+  
+        // Retorna o id da ultima venda realizada
+        objv.setId(vendas_v.retornaUltimaVenda());
+        //System.out.println("Id da ultima venda: " + objv.getId());
         
+        // Cadastrando os produtos na tabela item vendas
+        for (int i = 0; i < carrinho.getRowCount(); i++) {
+            
+            ProdutosClass objp = new ProdutosClass();
+            ItemVendasClass item = new ItemVendasClass();
+            item.setVenda(objv);
+            
+            objp.setId(Integer.parseInt(carrinho.getValueAt(i, 0).toString()));
+            item.setProduto(objp);
+            item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
+            item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            
+            //Arquivo do controler "itemVenda"
+            itemVenda controlItem = new itemVenda();
+            controlItem.cadastraItem(item);
+            
+        }
+        
+        /****/
+        JOptionPane.showMessageDialog(null, "Venda Registrada com Sucesso!");
+
     }//GEN-LAST:event_btnFinalizarActionPerformed
 
     /**

@@ -24,7 +24,7 @@ public class vendas {
     public void cadastrarVendas(VendasClass obj) {
         try {
             
-            String sql = "insert into estoVendasJava.tb_produtos (cliente_id, data_venda, total_venda, observacoes) "
+            String sql = "insert into tb_vendas (cliente_id, data_venda, total_venda, observacoes) "
                     + "values (?,?,?,?)";
             
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -49,7 +49,7 @@ public class vendas {
             
             int idVenda = 0;
             
-            String query = "select max(id) id from estoVendasJava.tb_vendas";
+            String query = "select max(id) id from tb_vendas";
             PreparedStatement ps = connect.prepareStatement(query);
             
             ResultSet resultadoSelect = ps.executeQuery();
@@ -57,7 +57,7 @@ public class vendas {
             if (resultadoSelect.next()) {
                 VendasClass p = new VendasClass();
                 p.setId(resultadoSelect.getInt("id"));
-                
+                idVenda = p.getId();
             }
          
             return idVenda;

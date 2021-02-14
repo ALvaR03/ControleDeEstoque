@@ -1,6 +1,7 @@
 package estoque.view;
 
 import estoque.controller.itemVenda;
+import estoque.controller.produto;
 import estoque.controller.vendas;
 import estoque.model.ClientesClass;
 import estoque.model.ItemVendasClass;
@@ -238,7 +239,11 @@ public class FrmPagamentos extends javax.swing.JFrame {
         // Cadastrando os produtos na tabela item vendas
         for (int i = 0; i < carrinho.getRowCount(); i++) {
             
+            int qtd_estoque, qtd_comprada, qtd_atualizada; // Variaveis para dar baixa no estoque
+            
             ProdutosClass objp = new ProdutosClass();
+            produto controlProd = new produto(); // Instanciar os objetos
+            
             ItemVendasClass item = new ItemVendasClass();
             item.setVenda(objv);
             
@@ -246,6 +251,13 @@ public class FrmPagamentos extends javax.swing.JFrame {
             item.setProduto(objp);
             item.setQtd(Integer.parseInt(carrinho.getValueAt(i, 2).toString()));
             item.setSubtotal(Double.parseDouble(carrinho.getValueAt(i, 4).toString()));
+            
+            // Baixa no estoque
+            qtd_estoque = controlProd.retornaEstoqueAtual(objp.getId());  
+            qtd_comprada = Integer.parseInt(carrinho.getValueAt(i, 2).toString());
+            qtd_atualizada = qtd_estoque - qtd_comprada;
+            
+            controlProd.baixaEstoque(objp.getId(), qtd_atualizada);
             
             //Arquivo do controler "itemVenda"
             itemVenda controlItem = new itemVenda();

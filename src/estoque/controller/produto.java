@@ -25,7 +25,7 @@ public class produto {
     // Medoto Cadastrar Produtos
     public void Cadastrar(ProdutosClass obj) {
         try {
-            String sql = "insert into tb_produtos (descricao, preco, qtd_estoque, for_id) "
+            String sql = "insert into estoVendasJava.tb_produtos (descricao, preco, qtd_estoque, for_id) "
                     + "values(?,?,?,?)";
             PreparedStatement stmt = connect.prepareStatement(sql);
             stmt.setString(1, obj.getDescricao());
@@ -229,5 +229,24 @@ public class produto {
         }
     }
     
-    
+    // Medoto que da baixa no estoque 
+    public void baixaEstoque(int id, int qtd_nova) {
+     
+        try {
+            
+            String sql = "update tb_produtos set qtd_estoque=? where id=?";
+
+            // Canectar o banco e organizar o camando de sql
+            PreparedStatement stmt = connect.prepareStatement(sql);
+            stmt.setInt(1, qtd_nova);
+            stmt.setInt(2, id);
+            stmt.execute();
+            stmt.close();    
+            
+        } catch (Exception erro) {
+            JOptionPane.showConfirmDialog(null, "Erro: " + erro);
+        }
+        
+        
+    }
 }

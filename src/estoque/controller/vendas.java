@@ -78,7 +78,8 @@ public class vendas {
             List<VendasClass> lista = new ArrayList<>();
             
             // Criar o sql, organizar e executar
-            String sql = "select v.id, v.data_venda, c.nome, v.total_venda, v.observacoes from tb_vendas as v"
+            String sql = "select v.id, date_format(v.data_venda, '%d/%m/%y') as data_formatada, "
+                    + "c.nome, v.total_venda, v.observacoes from tb_vendas as v"
                     + " inner join tb_clientes as c on(v.cliente_id = c.id) where v.data_venda between ? and ?";
             
             PreparedStatement stmt = connect.prepareStatement(sql);
@@ -92,7 +93,7 @@ public class vendas {
                 ClientesClass cli = new ClientesClass(); 
                 
                 obj.setId(resultadoSelect.getInt("v.id"));
-                obj.setData_venda(resultadoSelect.getString("v.data_venda"));
+                obj.setData_venda(resultadoSelect.getString("data_formatada"));
                 cli.setNome(resultadoSelect.getString("c.nome"));
                 obj.setTotal_venda(resultadoSelect.getDouble("v.total_venda"));
                 obj.setObs(resultadoSelect.getString("v.observacoes"));

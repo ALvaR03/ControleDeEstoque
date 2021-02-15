@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -70,7 +71,7 @@ public class vendas {
     
     
     // Metodo que filtra Vendas por Datas - usado no historico de vendas
-    public List<VendasClass> listarVendasPorPeriodo(String data_inicio, String data_fim) {
+    public List<VendasClass> listarVendasPorPeriodo(LocalDate data_inicio, LocalDate data_fim) {
         try {
             
             // Criar a lista
@@ -81,8 +82,8 @@ public class vendas {
                     + " inner join clientes as c on(v.cliente_id = c.id) where v.data_venda between ? and ?";
             
             PreparedStatement stmt = connect.prepareStatement(sql);
-            stmt.setString(1, data_inicio);
-            stmt.setString(2, data_fim);
+            stmt.setString(1, data_inicio.toString());
+            stmt.setString(2, data_fim.toString());
             
             ResultSet resultadoSelect = stmt.executeQuery();
             

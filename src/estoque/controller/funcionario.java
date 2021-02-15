@@ -3,7 +3,6 @@ package estoque.controller;
 import estoque.model.FuncionariosClass;
 import estoque.view.FrmLogin;
 import estoque.view.FrmMenu;
-import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -299,10 +298,29 @@ public class funcionario {
             
             if (resultadoSelect.next()) { // Usuario conseguiu fazer o login
                 
-                JOptionPane.showMessageDialog(null, "Ola!, Seja Bem-Vindo.");
-                FrmMenu telaMenu = new FrmMenu();
-                telaMenu.usuarioLogado = resultadoSelect.getString("nome");
-                telaMenu.setVisible(true);
+                // Caso o usuario seja do tipo admin
+                if (resultadoSelect.getString("nivel_acesso").equals("Admin")) {
+                    
+                    JOptionPane.showMessageDialog(null, "Ola!, Seja Bem-Vindo.");
+                    FrmMenu telaMenu = new FrmMenu();
+                    telaMenu.usuarioLogado = resultadoSelect.getString("nome");
+                    telaMenu.setVisible(true);
+                }
+                
+                // Caso o usuario seja do tipo limitado
+                else if(resultadoSelect.getString("nivel_acesso").equals("Usuário")) {
+                    
+                    JOptionPane.showMessageDialog(null, "Ola!, Seja Bem-Vindo.");
+                    FrmMenu telaMenu = new FrmMenu();
+                    telaMenu.usuarioLogado = resultadoSelect.getString("nome");
+                    
+                    // Desabilitar os menus
+                    telaMenu.menu_posicao.setEnabled(false);
+                    telaMenu.menu_controleVendas.setEnabled(false);
+                    
+                    telaMenu.setVisible(true);
+                    
+                }
                 
             } else { // Dados desconhecidos
                 

@@ -41,7 +41,8 @@ public class FrmTotalVenda extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         btnConsulta = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Total de Vendas por Data");
 
         jPanel1.setBackground(new java.awt.Color(255, 204, 51));
 

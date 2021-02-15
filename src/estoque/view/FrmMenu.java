@@ -3,6 +3,7 @@ package estoque.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -48,8 +49,8 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem6 = new javax.swing.JMenuItem();
-        jMenuItem7 = new javax.swing.JMenuItem();
-        jMenuItem8 = new javax.swing.JMenuItem();
+        menu_posicao = new javax.swing.JMenuItem();
+        menu_controleVendas = new javax.swing.JMenuItem();
         jMenu5 = new javax.swing.JMenu();
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenu7 = new javax.swing.JMenu();
@@ -144,11 +145,11 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenuItem6.setText("Abrir PDV");
         jMenu4.add(jMenuItem6);
 
-        jMenuItem7.setText("Posição do dia");
-        jMenu4.add(jMenuItem7);
+        menu_posicao.setText("Posição do dia");
+        jMenu4.add(menu_posicao);
 
-        jMenuItem8.setText("Histórico de Vendas");
-        jMenu4.add(jMenuItem8);
+        menu_controleVendas.setText("Controle de Vendas");
+        jMenu4.add(menu_controleVendas);
 
         jMenuBar1.add(jMenu4);
 
@@ -156,12 +157,22 @@ public class FrmMenu extends javax.swing.JFrame {
         jMenu5.setText("Configurações");
 
         jMenuItem9.setText("Trocar de Usuário");
+        jMenuItem9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem9ActionPerformed(evt);
+            }
+        });
         jMenu5.add(jMenuItem9);
 
         jMenuBar1.add(jMenu5);
 
         jMenu7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagens/Sair.png"))); // NOI18N
         jMenu7.setText("Sair");
+        jMenu7.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu7MouseClicked(evt);
+            }
+        });
         jMenuBar1.add(jMenu7);
 
         setJMenuBar(jMenuBar1);
@@ -188,6 +199,27 @@ public class FrmMenu extends javax.swing.JFrame {
        lblUsuario.setText(usuarioLogado);
        this.setVisible(true);
     }//GEN-LAST:event_formWindowActivated
+
+    private void jMenuItem9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem9ActionPerformed
+        
+        // Efetuar logout
+        FrmLogin telaLogin = new FrmLogin();
+        this.dispose();
+        telaLogin.setVisible(true);
+        
+    }//GEN-LAST:event_jMenuItem9ActionPerformed
+
+    private void jMenu7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu7MouseClicked
+        
+        // Saindo do sistema
+        int op; 
+        op = JOptionPane.showConfirmDialog(null, "Você tem certeza que deseja sair?");
+        
+        if (op == 0) {
+            System.exit(0);
+        }
+        
+    }//GEN-LAST:event_jMenu7MouseClicked
 
     /**
      * @param args the command line arguments
@@ -240,11 +272,11 @@ public class FrmMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
-    private javax.swing.JMenuItem jMenuItem7;
-    private javax.swing.JMenuItem jMenuItem8;
     private javax.swing.JMenuItem jMenuItem9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lblUsuario;
+    public javax.swing.JMenuItem menu_controleVendas;
+    public javax.swing.JMenuItem menu_posicao;
     private javax.swing.JDesktopPane painel_Desktop;
     // End of variables declaration//GEN-END:variables
 }

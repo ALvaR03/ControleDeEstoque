@@ -87,12 +87,14 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel10.setText("Observações:");
 
+        txtCliente.setEditable(false);
         txtCliente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtCliente.setEnabled(false);
 
         txtTotalVenda.setEditable(false);
         txtTotalVenda.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
 
+        txtDataVenda.setEditable(false);
         txtDataVenda.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtDataVenda.setEnabled(false);
 
@@ -228,9 +230,9 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tabelaItensVendidos;
-    private javax.swing.JTextField txtCliente;
-    private javax.swing.JTextField txtDataVenda;
-    private javax.swing.JTextArea txtObsVenda;
-    private javax.swing.JTextField txtTotalVenda;
+    public javax.swing.JTextField txtCliente;
+    public javax.swing.JTextField txtDataVenda;
+    public javax.swing.JTextArea txtObsVenda;
+    public javax.swing.JTextField txtTotalVenda;
     // End of variables declaration//GEN-END:variables
 }

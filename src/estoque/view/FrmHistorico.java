@@ -12,6 +12,7 @@ import estoque.model.VendasClass;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 /**
  *
@@ -171,26 +172,33 @@ public class FrmHistorico extends javax.swing.JFrame {
         
         // Botao buscar venda por pediodo 
         
-        // Receber as datas 
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate data_inicio = LocalDate.parse(txtDataInicio.getText(), formato);
-        LocalDate data_fim = LocalDate.parse(txtDataFim.getText(), formato);
-        
-        vendas controlVendas = new vendas();
-        List<VendasClass> lista = controlVendas.listarVendasPorPeriodo(data_inicio, data_fim);
+        try {
+            
+            // Receber as datas 
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate data_inicio = LocalDate.parse(txtDataInicio.getText(), formato);
+            LocalDate data_fim = LocalDate.parse(txtDataFim.getText(), formato);
 
-        DefaultTableModel dados = (DefaultTableModel)tabelaHistorico.getModel();
-        dados.setNumRows(0);
-        
-        for (VendasClass vd : lista) {
-            dados.addRow(new Object[]{
-                vd.getId(),
-                vd.getData_venda(),
-                vd.getCliente().getNome(),
-                vd.getTotal_venda(),
-                vd.getObs()
-            });
+            vendas controlVendas = new vendas();
+            List<VendasClass> lista = controlVendas.listarVendasPorPeriodo(data_inicio, data_fim);
+
+            DefaultTableModel dados = (DefaultTableModel)tabelaHistorico.getModel();
+            dados.setNumRows(0);
+
+            for (VendasClass vd : lista) {
+                dados.addRow(new Object[]{
+                    vd.getId(),
+                    vd.getData_venda(),
+                    vd.getCliente().getNome(),
+                    vd.getTotal_venda(),
+                    vd.getObs()
+                });
+            }
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Digite duas datas como intervalo!!");
         }
+        
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**

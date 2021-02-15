@@ -1,4 +1,10 @@
 package estoque.view;
+
+import estoque.controller.vendas;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author lima
@@ -137,7 +143,22 @@ public class FrmTotalVenda extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultaActionPerformed
-
+        
+        // Botao calcula total de venda por data
+        try {
+            // Receber a data
+            DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            LocalDate data_venda = LocalDate.parse(txtData.getText(), formato);
+            
+            double total_venda;
+            vendas vd = new vendas();
+            total_venda = vd.retornaTotalVendaPorData(data_venda);
+            
+            txtTotalVenda.setText(String.valueOf(total_venda));
+            
+        } catch (Exception erro) {
+            JOptionPane.showMessageDialog(null, "Informe uma data corretamente." + erro);
+        }
 
     }//GEN-LAST:event_btnConsultaActionPerformed
 

@@ -1,6 +1,13 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
 package estoque.view;
 
 import estoque.controller.vendas;
+import estoque.model.ProdutosClass;
 import estoque.model.VendasClass;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

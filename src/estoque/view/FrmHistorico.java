@@ -1,6 +1,8 @@
 package estoque.view;
 
+import estoque.controller.itemVenda;
 import estoque.controller.vendas;
+import estoque.model.ItemVendasClass;
 import estoque.model.VendasClass;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -208,6 +210,25 @@ public class FrmHistorico extends javax.swing.JFrame {
         tela.txtTotalVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 3).toString());
         tela.txtDataVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 1).toString());
         tela.txtObsVenda.setText(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 4).toString());
+        
+        int venda_id = Integer.parseInt(tabelaHistorico.getValueAt(tabelaHistorico.getSelectedRow(), 0).toString());
+        
+        // Dados dos itens comprados
+        ItemVendasClass item = new ItemVendasClass();
+        itemVenda iV = new itemVenda();
+        List<ItemVendasClass> listaItens = iV.listaItensVenda(venda_id);
+        
+        DefaultTableModel dados = (DefaultTableModel)tela.tabelaItensVendidos.getModel();
+        dados.setNumRows(0);
+        
+        for (ItemVendasClass iVC : listaItens) {
+            dados.addRow(new Object[]{
+                iVC.getProduto().getDescricao(),
+                iVC.getQtd(),
+                iVC.getProduto().getPreco(),
+                iVC.getSubtotal() 
+            });
+        }
         
         tela.setVisible(true);
         

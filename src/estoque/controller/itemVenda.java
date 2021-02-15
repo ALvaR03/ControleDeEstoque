@@ -54,8 +54,8 @@ public class itemVenda {
         
         try {
             
-            String query = "select i.id, p.descricao, i.qtd, p.preco, i.subtotal, from tb_itensvendas as i " +
-                    "inner join tb_produtos as p on(i.produto_id = p.id) where i.venda_id = ?";
+            String query = "select p.descricao, i.qtd, p.preco, i.subtotal from tb_itensvendas as i" +
+                    " inner join tb_produtos as p on(i.produto_id = p.id) where i.venda_id = ?";
             
             PreparedStatement ps = connect.prepareStatement(query);
             ps.setInt(1, venda_id);
@@ -66,11 +66,11 @@ public class itemVenda {
                 ItemVendasClass item = new ItemVendasClass();
                 ProdutosClass prod = new ProdutosClass();
                 
-                item.setId(resultadoSelect.getInt("i.id"));
                 prod.setDescricao(resultadoSelect.getString("p.descricao"));
                 item.setQtd(resultadoSelect.getInt("i.qtd"));
-                prod.setPreco(resultadoSelect.getDouble("p.descricao"));
-                item.setSubtotal(resultadoSelect.getDouble("i.qtd"));
+                prod.setPreco(resultadoSelect.getDouble("p.preco"));
+                item.setSubtotal(resultadoSelect.getDouble("i.subtotal"));
+                
                 item.setProduto(prod);
                 
                 lista.add(item);

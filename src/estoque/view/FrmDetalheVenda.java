@@ -1,13 +1,4 @@
 package estoque.view;
-
-import estoque.controller.vendas;
-import estoque.model.ProdutosClass;
-import estoque.model.VendasClass;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author lima
@@ -90,6 +81,7 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
         txtCliente.setEditable(false);
         txtCliente.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         txtCliente.setEnabled(false);
+        txtCliente.setSelectionColor(new java.awt.Color(255, 255, 255));
 
         txtTotalVenda.setEditable(false);
         txtTotalVenda.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
@@ -156,7 +148,7 @@ public class FrmDetalheVenda extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Código", "Produto", "Qtd Produto", "Valor", "Subtotal"
+                "Produto", "Qtd Produto", "Valor", "Subtotal"
             }
         ));
         jScrollPane1.setViewportView(tabelaItensVendidos);

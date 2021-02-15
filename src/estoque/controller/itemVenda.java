@@ -3,7 +3,13 @@ package estoque.controller;
 import java.sql.Connection;
 import projeto.jdbc.ConnectionFactory;
 import estoque.model.ItemVendasClass;
+import estoque.model.ProdutosClass;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -38,6 +44,42 @@ public class itemVenda {
             
         } catch (Exception erro) {
             JOptionPane.showMessageDialog(null, "Erro: " + erro);
+        }
+    }
+
+    // Metodos que lista Itens de uma venda por id
+    public List<ItemVendasClass> listaItensVenda(int venda_id) {
+        
+        List<ItemVendasClass> lista = new ArrayList<>();
+        
+        try {
+            
+            String query = "select i.id, p.descricao, i.qtd, p.preco, i.subtotal, from tb_itensvendas as i " +
+                    "inner join tb_produtos as p on(i.produto_id = p.id) where i.venda_id = ?";
+            
+            PreparedStatement ps = connect.prepareStatement(query);
+            ps.setInt(1, venda_id);
+            
+            ResultSet resultadoSelect = ps.executeQuery();
+            
+            while (resultadoSelect.next()) {
+                ItemVendasClass item = new ItemVendasClass();
+                ProdutosClass prod = new ProdutosClass();
+                
+                item.setId(resultadoSelect.getInt("i.id"));
+                prod.setDescricao(resultadoSelect.getString("p.descricao"));
+                item.setQtd(resultadoSelect.getInt("i.qtd"));
+                prod.setPreco(resultadoSelect.getDouble("p.descricao"));
+                item.setSubtotal(resultadoSelect.getDouble("i.qtd"));
+                item.setProduto(prod);
+                
+                lista.add(item);
+            }
+            
+            return lista;
+            
+        } catch (SQLException erro) {
+            throw new RuntimeException(erro);
         }
     }
     

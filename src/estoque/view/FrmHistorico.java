@@ -6,6 +6,13 @@
 
 package estoque.view;
 
+import estoque.controller.vendas;
+import estoque.model.ProdutosClass;
+import estoque.model.VendasClass;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author lima
@@ -116,13 +123,14 @@ public class FrmHistorico extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel8)
                         .addComponent(txtDataFim, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnPesquisar)))
+                        .addComponent(btnPesquisar))
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel7)
+                        .addComponent(txtDataInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(41, Short.MAX_VALUE))
         );
 
@@ -160,8 +168,29 @@ public class FrmHistorico extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPesquisarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarActionPerformed
-  
+        
+        // Botao buscar venda por pediodo 
+        
+        // Receber as datas 
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate data_inicio = LocalDate.parse(txtDataInicio.getText(), formato);
+        LocalDate data_fim = LocalDate.parse(txtDataFim.getText(), formato);
+        
+        vendas controlVendas = new vendas();
+        List<VendasClass> lista = controlVendas.listarVendasPorPeriodo(data_inicio, data_fim);
 
+        DefaultTableModel dados = (DefaultTableModel)tabelaHistorico.getModel();
+        dados.setNumRows(0);
+        
+        for (VendasClass vd : lista) {
+            dados.addRow(new Object[]{
+                vd.getId(),
+                vd.getData_venda(),
+                vd.getCliente().getNome(),
+                vd.getTotal_venda(),
+                vd.getObs()
+            });
+        }
     }//GEN-LAST:event_btnPesquisarActionPerformed
 
     /**

@@ -119,8 +119,9 @@ public class vendas {
             double totalVenda = 0;
             
             String query = "select sum(total_venda) as total from tb_vendas where data_venda = ?";
+           
             PreparedStatement ps = connect.prepareStatement(query);
-            ps.setString((1), data_venda.toString());
+            ps.setString(1, data_venda.toString());
             
             ResultSet resultadoSelect = ps.executeQuery();
                 
